@@ -2,7 +2,10 @@
 
 import { HTMLInputTypeAttribute } from 'react';
 import { Controller, FieldValues, UseControllerProps } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import TextField from '@mui/material/TextField';
+
+import { Namespaces } from '@/app/i18n/data/i18n.enum';
 
 interface Props<T extends FieldValues> extends UseControllerProps<T> {
   label: string;
@@ -24,6 +27,8 @@ const FormInputText = <T extends FieldValues>({
   size,
   margin,
 }: Props<T>) => {
+  const { t } = useTranslation(Namespaces.ERRORS);
+
   return (
     <Controller
       name={name}
@@ -31,7 +36,7 @@ const FormInputText = <T extends FieldValues>({
       rules={rules}
       render={({ field: { onChange, ...props }, fieldState: { error } }) => (
         <TextField
-          helperText={error ? error.message : ' '}
+          helperText={error ? t(`validation.${error.message!}`) : ' '}
           error={!!error}
           size={size}
           margin={margin}

@@ -2,9 +2,12 @@
 
 import { useState } from 'react';
 import { Controller, FieldValues, UseControllerProps } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import TextField from '@mui/material/TextField';
 import { IconButton, InputAdornment } from '@mui/material';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
+
+import { Namespaces } from '@/app/i18n/data/i18n.enum';
 
 interface Props<T extends FieldValues> extends UseControllerProps<T> {
   label: string;
@@ -24,6 +27,7 @@ const FormInputPassword = <T extends FieldValues>({
   size,
   margin,
 }: Props<T>) => {
+  const { t } = useTranslation(Namespaces.ERRORS);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleShowPasswordClick = () => setShowPassword((show) => !show);
@@ -41,7 +45,7 @@ const FormInputPassword = <T extends FieldValues>({
       rules={rules}
       render={({ field: { onChange, ...props }, fieldState: { error } }) => (
         <TextField
-          helperText={error ? error.message : ' '}
+          helperText={error ? t(`validation.${error.message!}`) : ' '}
           error={!!error}
           size={size}
           margin={margin}

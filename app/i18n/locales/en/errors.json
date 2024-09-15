@@ -7,5 +7,18 @@
     "default": "Something went wrong.",
     "CallbackRouteError": "An error occurred during the authentication process.",
     "auth/invalid-credential": "You have entered a wrong email or password."
+  },
+  "validation": {
+    "emailRequired": "Email is required",
+    "invalidEmail": "Invalid email",
+    "usernameRequired": "Username is required",
+    "passwordRequired": "Password is required",
+    "passwordMin": "Password should be at least 8 characters",
+    "passwordMax": "Password should be maximum 20 characters",
+    "passwordUpperCase": "Password should contain at least 1 uppercase character",
+    "passwordLowerCase": "Password should contain at least 1 lowercase character",
+    "passwordNumber": "Password should contain at least 1 number",
+    "passwordSpecialChar": "Password should contain at least 1 special character",
+    "passwordsMatch": "Passwords don't match"
   }
 }

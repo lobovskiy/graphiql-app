@@ -4,31 +4,32 @@ export const registerSchema = z
   .object({
     email: z
       .string()
-      .min(1, 'Email is required')
-      .email('Invalid email')
+      .min(1, 'emailRequired')
+      .email('invalidEmail')
       .max(100)
       .trim(),
-    username: z.string().min(1, 'Username is required').max(100).trim(),
+    username: z.string().min(1, 'usernameRequired').max(100).trim(),
     password: z
       .string()
-      .min(8, { message: 'Password should be at least 8 characters' })
-      .max(20, { message: 'Password should be maximum 20 characters' })
+      .min(1, { message: 'passwordRequired' })
+      .min(8, { message: 'passwordMin' })
+      .max(20, { message: 'passwordMax' })
       .refine((password) => /[A-Z]/.test(password), {
-        message: 'Password should contain at least 1 uppercase character',
+        message: 'passwordUpperCase',
       })
       .refine((password) => /[a-z]/.test(password), {
-        message: 'Password should contain at least 1 lowercase character',
+        message: 'passwordLowerCase',
       })
       .refine((password) => /[0-9]/.test(password), {
-        message: 'Password should contain at least 1 number',
+        message: 'passwordNumber',
       })
       .refine((password) => /[!@#$%^&*]/.test(password), {
-        message: 'Password should contain at least 1 special character',
+        message: 'passwordSpecialChar',
       }),
     confirmPassword: z.string().optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
+    message: 'passwordsMatch',
     path: ['confirmPassword'],
   });
 
